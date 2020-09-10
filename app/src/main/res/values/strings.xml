@@ -1,10 +1,24 @@
 <resources>
     <string name="app_name">LeaderBoard</string>
     <string name="title_activity_leader_board">LeaderBoardActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
     <string name="submit">Submit</string>
     <string name="learning_leaders">Learning Leaders</string>
     <string name="skill_iq_leaders">Skill IQ Leaders</string>
     <string name="badge_image">Badge Image</string>
+    <string name="learner_skill_iq_desc">%1$d skill IQ Score, %2$s</string>
+    <string name="learner_hours_desc">%1$d learning hours, %2$s</string>
+    <string name="progress_bar_title">Retrieving leaderboard data</string>
+    <string name="please_wait">Please, wait a moment…</string>
+    <string name="network_error">Unfortunately, a network error occured.</string>
+    <string name="could_not_fetch_data">Sorry, we could not retrieve data.</string>
+    <string name="something_wrong">Something went wrong, while trying to parse data.</string>
+    <string name="project_submission">Project Submission</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_email_address">Email Address</string>
+    <string name="hint_project_link">Project on GITHUB (link)</string>
+    <string name="are_you_sure">Are you sure ?</string>
+    <string name="yes">Yes</string>
+    <string name="submission_successful">Submission Successful</string>
+    <string name="submission_not_successful">Submission not Successful</string>
 </resources>

@@ -1,61 +1,72 @@
 package com.gads2020.leaderboard.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gads2020.leaderboard.Constants;
+import com.gads2020.leaderboard.LearnerType;
 import com.gads2020.leaderboard.R;
 import com.gads2020.leaderboard.adapters.LeaderBoardAdapter.LeaderBoardAdapter;
 import com.gads2020.leaderboard.api.APIClient;
+import com.gads2020.leaderboard.callbacks.DataFetchCallBack.DataFetchCallBack;
 import com.gads2020.leaderboard.models.Learner.Learner;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class LearningLeadersFragment extends Fragment {
 
-    private static final String ARG_TAB_NAME_RES_ID = "tab_name_res_id";
-    private int resId;
+    private static final String ARG_LEARNER_TYPE = "learner_type";
+    private LearnerType learnerType;
 
     private RecyclerView mRecyclerView;
     private Call<JsonElement> apiCall;
     private ArrayList<Learner> mLearners;
+    private DataFetchCallBack mDataFetchListener;
 
-    public static LearningLeadersFragment newInstance(int resId) {
+    static LearningLeadersFragment newInstance(LearnerType type) {
         LearningLeadersFragment fragment = new LearningLeadersFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_TAB_NAME_RES_ID, resId);
+        bundle.putSerializable(ARG_LEARNER_TYPE, type);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(@NotNull Context context) {
+        super.onAttach(context);
+        try {
+            if (requireContext() instanceof DataFetchCallBack) {
+                mDataFetchListener = (DataFetchCallBack) requireContext();
+            } else {
+                throw new RuntimeException(requireContext().toString()
+                        + " must implement DataFetchCallBack");
+            }
+        }catch (Exception ignore) {}
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            resId = getArguments().getInt(ARG_TAB_NAME_RES_ID);
+            learnerType = (LearnerType) getArguments().getSerializable(ARG_LEARNER_TYPE);
         }
-
     }
 
     @Override
@@ -83,7 +94,7 @@ public class LearningLeadersFragment extends Fragment {
     }
 
     private void fetchData() {
-        if(resId == R.string.learning_leaders) {
+        if(learnerType == LearnerType.LEARNING_LEADER) {
             fetchTopLearningLeaders();
         } else {
             fetchSkillIqLeaders();
@@ -92,7 +103,7 @@ public class LearningLeadersFragment extends Fragment {
 
     private void fetchTopLearningLeaders() {
         mLearners.clear();
-        apiCall = APIClient.getInstance()
+        apiCall = APIClient.getInstance(Constants.API_BASE_URL)
                 .fetchLearningLeaders();
 
         apiCall.enqueue(new Callback<JsonElement>() {
@@ -109,29 +120,27 @@ public class LearningLeadersFragment extends Fragment {
                             mLearners.add(learner);
                         }
 
-                        Toast.makeText(requireContext(), new Gson().toJson(response.body()), Toast.LENGTH_SHORT).show();
-                        LeaderBoardAdapter adapter = new LeaderBoardAdapter(mLearners);
+                        LeaderBoardAdapter adapter = new LeaderBoardAdapter(mLearners, requireContext(), learnerType);
                         mRecyclerView.setAdapter(adapter);
-
                     } catch (JSONException e) {
-                        Toast.makeText(getContext(), "Unfortunately, a parsing error occurred !", Toast.LENGTH_SHORT).show();
+                        mDataFetchListener.onFailure(requireContext().getResources().getString(R.string.something_wrong));
                     }
 
                 } else {
-                    Toast.makeText(requireContext(), "Error : " + response.message(), Toast.LENGTH_SHORT).show();
+                    mDataFetchListener.onFailure(requireContext().getResources().getString(R.string.could_not_fetch_data));
                 }
+
             }
 
             @Override
             public void onFailure(@NonNull Call<JsonElement> call, @NonNull Throwable t) {
-                Toast.makeText(requireContext(), "Failure : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                mDataFetchListener.onFailure(requireContext().getResources().getString(R.string.network_error));
             }
         });
-
     }
 
     private void fetchSkillIqLeaders() {
-        apiCall = APIClient.getInstance()
+        apiCall = APIClient.getInstance(Constants.API_BASE_URL)
                 .fetchSkillIqLeaders();
 
         apiCall.enqueue(new Callback<JsonElement>() {
@@ -148,22 +157,22 @@ public class LearningLeadersFragment extends Fragment {
                             mLearners.add(learner);
                         }
 
-                        Toast.makeText(requireContext(), new Gson().toJson(response.body()), Toast.LENGTH_SHORT).show();
-                        LeaderBoardAdapter adapter = new LeaderBoardAdapter(mLearners);
+                        LeaderBoardAdapter adapter = new LeaderBoardAdapter(mLearners, requireContext(), learnerType);
                         mRecyclerView.setAdapter(adapter);
+                        mDataFetchListener.onSuccess();
 
                     } catch (JSONException e) {
-                        Toast.makeText(getContext(), "Unfortunately, a parsing error occurred !", Toast.LENGTH_SHORT).show();
+                        mDataFetchListener.onFailure(requireContext().getResources().getString(R.string.something_wrong));
                     }
 
                 } else {
-                    Toast.makeText(requireContext(), "Error : " + response.message(), Toast.LENGTH_SHORT).show();
+                    mDataFetchListener.onFailure(requireContext().getResources().getString(R.string.could_not_fetch_data));
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<JsonElement> call, @NonNull Throwable t) {
-                Toast.makeText(requireContext(), "Failure : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                mDataFetchListener.onFailure(requireContext().getResources().getString(R.string.network_error));
             }
         });
     }

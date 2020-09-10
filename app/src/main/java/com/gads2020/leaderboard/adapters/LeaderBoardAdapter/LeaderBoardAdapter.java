@@ -14,10 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gads2020.leaderboard.LearnerType;
 import com.gads2020.leaderboard.R;
 import com.gads2020.leaderboard.models.Learner.Learner;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonElement;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,9 +30,13 @@ import retrofit2.Response;
 public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.ViewHolder> {
 
     private final ArrayList<Learner> mLearners;
+    private final LearnerType mLearnerType;
+    private Context mContext;
 
-    public LeaderBoardAdapter(ArrayList<Learner> mLearners) {
+    public LeaderBoardAdapter(ArrayList<Learner> mLearners, Context context, LearnerType learnerType) {
         this.mLearners = mLearners == null ? new ArrayList<Learner>() : mLearners;
+        this.mContext = context;
+        this.mLearnerType = learnerType;
     }
 
     @NonNull
@@ -45,7 +51,23 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Learner mLearner = mLearners.get(position);
         holder.name.setText(mLearner.getName());
-        //holder.summary.setText(String.format("%s %s", order.getCustomer().getFirst_name(), order.getCustomer().getLast_name()));
+
+        if(mLearnerType == LearnerType.LEARNING_LEADER) {
+            holder.summary.setText(mContext.getString(R.string.learner_hours_desc, mLearner.getHours(), mLearner.getCountry()));
+        } else {
+            holder.summary.setText(mContext.getString(R.string.learner_skill_iq_desc, mLearner.getScore(), mLearner.getCountry()));
+        }
+
+        try {
+            Picasso.get()
+                    .load(mLearner.getBadgeUrl())
+                    .placeholder(R.drawable.ic_image_black_24dp)
+                    .error(R.drawable.ic_image_black_24dp)
+                    .into(holder.badgeImage);
+        }catch (Exception e) {
+            holder.badgeImage.setImageResource(R.drawable.ic_image_black_24dp);
+        }
+
     }
 
     @Override
@@ -54,7 +76,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         ImageView badgeImage;

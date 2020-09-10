@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_margin="10dp"
     app:cardCornerRadius="3dp">
 
     <LinearLayout
@@ -38,7 +41,6 @@
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:text="@string/submit"
-                style="?attr/materialAlertDialogTitleTextStyle"
                 android:textColor="@color/dark_one"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
