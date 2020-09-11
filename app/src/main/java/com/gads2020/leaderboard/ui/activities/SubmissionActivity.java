@@ -1,22 +1,17 @@
-package com.gads2020.leaderboard;
+package com.gads2020.leaderboard.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,11 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.gads2020.leaderboard.Constants;
+import com.gads2020.leaderboard.R;
 import com.gads2020.leaderboard.api.APIClient;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.gson.JsonElement;
 
 import retrofit2.Call;
@@ -44,6 +38,10 @@ public class SubmissionActivity extends AppCompatActivity {
     private MaterialButton btnSubmit;
     private AlertDialog dialog;
     private ProgressBar mProgressBar;
+    private String firstName;
+    private String lastName;
+    private String emailAddress;
+    private String projectLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +62,25 @@ public class SubmissionActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewGroup viewGroup = findViewById(android.R.id.content);
-                ConfirmDialog confirmDialog = new ConfirmDialog(SubmissionActivity.this);
-                confirmDialog.displayDialog(viewGroup);
+
+                firstName = edtFirstName.getText().toString().trim();
+                lastName = edtLastName.getText().toString().trim();
+                emailAddress = edtEmailAddress.getText().toString().trim();
+                projectLink = edtProjectLink.getText().toString().trim();
+
+                // Ensure all the fields are provided with correct values
+                if(
+                        firstName.isEmpty()
+                                || lastName.isEmpty()
+                                || emailAddress.isEmpty()
+                                || projectLink.isEmpty()
+                ) {
+                    Toast.makeText(SubmissionActivity.this, getResources().getString(R.string.fill_required_fields), Toast.LENGTH_SHORT).show();
+                } else {
+                    ViewGroup viewGroup = findViewById(android.R.id.content);
+                    ConfirmDialog confirmDialog = new ConfirmDialog(SubmissionActivity.this);
+                    confirmDialog.displayDialog(viewGroup);
+                }
             }
         });
     }
@@ -77,11 +91,11 @@ public class SubmissionActivity extends AppCompatActivity {
         private ImageView mResultIcon;
         private TextView mResultText;
 
-        public ConfirmDialog(@NonNull Context context) {
+        ConfirmDialog(@NonNull Context context) {
             super(context);
         }
 
-        public void displayDialog(ViewGroup viewGroup) {
+        void displayDialog(ViewGroup viewGroup) {
             View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.custom_alert_dialog, viewGroup, false);
             MaterialButton btnConfirm = (MaterialButton) dialogView.findViewById(R.id.btn_confirm);
             final ImageButton btnClose = (ImageButton) dialogView.findViewById(R.id.btn_close);
@@ -112,13 +126,14 @@ public class SubmissionActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
+        // Project submission
         private void submitProject() {
             Call<JsonElement> submitCall = APIClient.getInstance(Constants.SUBMISSION_BASE_URL)
                     .submitProject(
-                            "John",
-                            "Doe",
-                            "hello@me.com",
-                            "https://www.google.com"
+                            firstName,
+                            lastName,
+                            emailAddress,
+                            projectLink
                     );
 
             submitCall.enqueue(new Callback<JsonElement>() {

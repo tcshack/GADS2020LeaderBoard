@@ -7,9 +7,9 @@
     <string name="badge_image">Badge Image</string>
     <string name="learner_skill_iq_desc">%1$d skill IQ Score, %2$s</string>
     <string name="learner_hours_desc">%1$d learning hours, %2$s</string>
-    <string name="progress_bar_title">Retrieving leaderboard data</string>
+    <string name="progress_bar_title">Retrieving LeaderBoard data</string>
     <string name="please_wait">Please, wait a moment…</string>
-    <string name="network_error">Unfortunately, a network error occured.</string>
+    <string name="network_error">Unfortunately, a network error occurred.</string>
     <string name="could_not_fetch_data">Sorry, we could not retrieve data.</string>
     <string name="something_wrong">Something went wrong, while trying to parse data.</string>
     <string name="project_submission">Project Submission</string>
@@ -21,4 +21,5 @@
     <string name="yes">Yes</string>
     <string name="submission_successful">Submission Successful</string>
     <string name="submission_not_successful">Submission not Successful</string>
+    <string name="fill_required_fields">Please, fill all the fields above then try again.</string>
 </resources>

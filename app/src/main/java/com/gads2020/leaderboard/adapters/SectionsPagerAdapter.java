@@ -1,4 +1,4 @@
-package com.gads2020.leaderboard.ui.main;
+package com.gads2020.leaderboard.adapters;
 
 import android.content.Context;
 
@@ -8,9 +8,9 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import com.gads2020.leaderboard.LearnerType;
+import com.gads2020.leaderboard.enums.LearnerType;
 import com.gads2020.leaderboard.R;
+import com.gads2020.leaderboard.ui.fragments.LearningLeadersFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

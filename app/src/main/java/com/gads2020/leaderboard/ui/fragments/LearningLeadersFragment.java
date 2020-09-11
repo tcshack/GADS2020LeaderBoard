@@ -1,4 +1,4 @@
-package com.gads2020.leaderboard.ui.main;
+package com.gads2020.leaderboard.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,13 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.gads2020.leaderboard.Constants;
-import com.gads2020.leaderboard.LearnerType;
+import com.gads2020.leaderboard.enums.LearnerType;
 import com.gads2020.leaderboard.R;
-import com.gads2020.leaderboard.adapters.LeaderBoardAdapter.LeaderBoardAdapter;
+import com.gads2020.leaderboard.adapters.LeaderBoardAdapter;
 import com.gads2020.leaderboard.api.APIClient;
-import com.gads2020.leaderboard.callbacks.DataFetchCallBack.DataFetchCallBack;
+import com.gads2020.leaderboard.DataFetchCallBack;
 import com.gads2020.leaderboard.models.Learner.Learner;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -34,13 +33,12 @@ public class LearningLeadersFragment extends Fragment {
 
     private static final String ARG_LEARNER_TYPE = "learner_type";
     private LearnerType learnerType;
-
     private RecyclerView mRecyclerView;
     private Call<JsonElement> apiCall;
     private ArrayList<Learner> mLearners;
     private DataFetchCallBack mDataFetchListener;
 
-    static LearningLeadersFragment newInstance(LearnerType type) {
+    public static LearningLeadersFragment newInstance(LearnerType type) {
         LearningLeadersFragment fragment = new LearningLeadersFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(ARG_LEARNER_TYPE, type);

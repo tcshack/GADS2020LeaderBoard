@@ -1,25 +1,17 @@
-package com.gads2020.leaderboard;
+package com.gads2020.leaderboard.ui.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.gads2020.leaderboard.callbacks.DataFetchCallBack.DataFetchCallBack;
+import com.gads2020.leaderboard.R;
+import com.gads2020.leaderboard.DataFetchCallBack;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
-
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import com.gads2020.leaderboard.ui.main.SectionsPagerAdapter;
+import com.gads2020.leaderboard.adapters.SectionsPagerAdapter;
 
 public class LeaderBoardActivity extends AppCompatActivity implements DataFetchCallBack {
 

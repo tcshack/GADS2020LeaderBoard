@@ -3,16 +3,13 @@
     <style name="SplashScreen" parent="@style/AppTheme">
         <item name="android:statusBarColor">@color/dark_two</item>
         <item name="android:navigationBarColor">@color/dark_two</item>
-        <item name="android:fontFamily">@font/productsansregular</item>
         <item name="colorPrimaryDark">@color/black</item>
     </style>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/ps_blue</item>
+        <item name="colorPrimary">@color/lb_blue</item>
         <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/ps_blue_dark</item>
+        <item name="colorAccent">@color/lb_blue_dark</item>
         <item name="android:colorBackground">@color/black</item>
         <item name="homeAsUpIndicator">?android:homeAsUpIndicator</item>
     </style>

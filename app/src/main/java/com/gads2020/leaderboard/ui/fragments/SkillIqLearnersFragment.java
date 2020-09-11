@@ -1,4 +1,4 @@
-package com.gads2020.leaderboard.ui.main;
+package com.gads2020.leaderboard.ui.fragments;
 
 import androidx.fragment.app.Fragment;
 

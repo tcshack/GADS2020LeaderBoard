@@ -1,31 +1,21 @@
-package com.gads2020.leaderboard.adapters.LeaderBoardAdapter;
+package com.gads2020.leaderboard.adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gads2020.leaderboard.LearnerType;
+import com.gads2020.leaderboard.enums.LearnerType;
 import com.gads2020.leaderboard.R;
 import com.gads2020.leaderboard.models.Learner.Learner;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.gson.JsonElement;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.ViewHolder> {
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LeaderBoardActivity">
+    tools:context=".ui.activities.LeaderBoardActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 
         <TextView
             android:textAppearance="?attr/textAppearanceHeadline5"
-            android:textColor="@color/skill_level_novice"
+            android:textColor="@color/lb_orange"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:layout_marginBottom="70dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/lb_default_search_color"
+            android:background="@color/lb_light_uk"
             android:layout_marginTop="5dp" />
         
         <LinearLayout
@@ -127,7 +127,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:textColor="@color/white"
-            app:backgroundTint="@color/skill_level_proficient"
+            app:backgroundTint="@color/lb_dark_green"
             app:cornerRadius="20dp"
             android:textStyle="bold"
             android:textSize="16sp"

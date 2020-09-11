@@ -22,7 +22,6 @@
         <ImageView
             android:id="@+id/badge_image"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/top_learner"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:contentDescription="@string/badge_image"
@@ -40,7 +39,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:text="@string/submit"
                 android:textColor="@color/dark_one"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
@@ -49,7 +47,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/submit"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="@color/dark_one" />
 

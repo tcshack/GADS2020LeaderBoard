@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".LeaderBoardActivity">
+    tools:context=".ui.activities.LeaderBoardActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:background="@color/black"
@@ -39,7 +39,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 app:strokeWidth="0dp"
-                app:strokeColor="@color/google_white"
+                app:strokeColor="@color/white"
                 app:cardCornerRadius="15dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"

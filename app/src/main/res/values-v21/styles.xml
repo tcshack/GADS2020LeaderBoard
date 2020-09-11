@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplashScreen" parent="@style/AppTheme">
+        <item name="android:statusBarColor">@color/dark_two</item>
+        <item name="android:navigationBarColor">@color/dark_two</item>
+        <item name="colorPrimaryDark">@color/black</item>
+    </style>
+</resources>
