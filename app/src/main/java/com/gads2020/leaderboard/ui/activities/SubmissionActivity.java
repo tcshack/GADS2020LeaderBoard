@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -143,13 +144,12 @@ public class SubmissionActivity extends AppCompatActivity {
                     confirmSection.setVisibility(View.GONE);
                     resultSection.setVisibility(View.VISIBLE);
                     if(response.isSuccessful()) {
-                        Toast.makeText(SubmissionActivity.this, "Successful", Toast.LENGTH_SHORT).show();
                         mResultIcon.setImageResource(R.drawable.ic_done);
                         mResultText.setText(getResources().getString(R.string.submission_successful));
                     } else {
                         mResultIcon.setImageResource(R.drawable.ic_warning);
                         mResultText.setText(getResources().getString(R.string.submission_not_successful));
-                        Toast.makeText(SubmissionActivity.this, "Error : " + response.message(), Toast.LENGTH_SHORT).show();
+                        Log.i("could_not_proceed_2", "Failure : " + response.message());
                     }
                 }
 
@@ -160,7 +160,7 @@ public class SubmissionActivity extends AppCompatActivity {
                     resultSection.setVisibility(View.VISIBLE);
                     mResultIcon.setImageResource(R.drawable.ic_warning);
                     mResultText.setText(getResources().getString(R.string.submission_not_successful));
-                    Toast.makeText(SubmissionActivity.this, "Failure : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.i("could_not_proceed_2", "Failure : " + t.getMessage());
                 }
             });
 
